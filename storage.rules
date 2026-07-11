@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Payment slips - user ට තමන්ගේම folder එකට upload කරන්න පුළුවන්
+    match /payment-slips/{userId}/{fileName} {
+      allow read: if request.auth != null && (
+        request.auth.uid == userId ||
+        request.auth.token.email == "isharaktii@gmail.com"
+      );
+      allow write: if request.auth != null && request.auth.uid == userId
+                   && request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*|application/pdf');
+    }
+  }
+}
