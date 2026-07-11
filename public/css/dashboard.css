@@ -1,0 +1,249 @@
+.dashboard-body {
+  display: block;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgba(10, 30, 15, 0.9);
+  border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #4ade80, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+.btn-logout {
+  padding: 8px 16px;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  background: transparent;
+  color: #f87171;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-logout:hover {
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: rgba(20, 50, 30, 0.5);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 16px;
+  padding: 25px;
+}
+
+.card h2 {
+  color: #4ade80;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.card h3 {
+  color: #86efac;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.card-desc {
+  color: #9ec9a8;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(74, 222, 128, 0.15);
+  color: #d1e7d1;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.badge.on, .badge.approved, .badge.done {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+.badge.off, .badge.pending {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+}
+
+.badge.rejected {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+.hint-text {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #fbbf24;
+}
+
+textarea, input[type="text"], input[type="number"], input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  background: rgba(10, 30, 15, 0.6);
+  color: #e0f5e0;
+  font-size: 0.95rem;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+}
+
+textarea:focus, input:focus {
+  border-color: #4ade80;
+}
+
+.platform-section {
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 15px;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+  color: #fff;
+  width: 100%;
+}
+
+.btn-secondary {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.4);
+}
+
+.conn-status {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 0.8rem;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.conn-status.connected {
+  color: #4ade80;
+}
+
+.amount-due {
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.payment-item {
+  background: rgba(10, 30, 15, 0.4);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: #d1e7d1;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.admin-table th, .admin-table td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid rgba(74, 222, 128, 0.15);
+  font-size: 0.85rem;
+}
+
+.admin-table th {
+  color: #86efac;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  margin: 2px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.action-btn.approve {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+.action-btn.reject {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+.action-btn.delete {
+  background: rgba(248, 113, 113, 0.3);
+  color: #fff;
+}
+
+.action-btn.toggle {
+  background: rgba(96, 165, 250, 0.2);
+  color: #60a5fa;
+}
