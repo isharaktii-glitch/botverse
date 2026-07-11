@@ -2,24 +2,26 @@
 // firebase-config.js
 // BotVerse - Firebase සැකසුම
 // ==========================================================
-// Firebase Console -> Project Settings -> Your apps -> SDK config
-// වලින් ගන්න value ටික මෙතන දාන්න
-// ==========================================================
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyA9Nq3N72FYnRjF1xyEkwegZcIbluLXaqk",
+  authDomain: "botverse-3343b.firebaseapp.com",
+  projectId: "botverse-3343b",
+  storageBucket: "botverse-3343b.firebasestorage.app",
+  messagingSenderId: "294353317707",
+  appId: "1:294353317707:web:1c9a5c41c8b548a43742ce",
+  measurementId: "G-FYJ8EXC5LZ"
 };
 
+// Firebase Initialize
 firebase.initializeApp(firebaseConfig);
 
+// Services
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
-// Admin dashboard access check සඳහා
+// ==========================================================
+// Admin account email (dashboard access check සඳහා)
+// ==========================================================
 const ADMIN_EMAIL = "isharaktii@gmail.com";
