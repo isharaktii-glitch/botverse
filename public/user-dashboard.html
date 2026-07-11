@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BotVerse - Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body">
+
+<nav class="navbar">
+  <span class="nav-brand">BotVerse</span>
+  <div class="nav-right">
+    <span id="statusBadge" class="status-badge">Loading...</span>
+    <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<div class="dashboard-container">
+
+  <!-- Account Status Card -->
+  <div class="card">
+    <h2>ගිණුම් තත්ත්වය</h2>
+    <div class="status-row">
+      <span>Bot Status:</span>
+      <span id="botStatusText" class="badge">-</span>
+    </div>
+    <div class="status-row">
+      <span>Payment Status:</span>
+      <span id="paymentStatusText" class="badge">-</span>
+    </div>
+    <p class="hint-text" id="approvalHint"></p>
+  </div>
+
+  <!-- Business Info Card -->
+  <div class="card">
+    <h2>ඔයාගේ Business/Personal විස්තර (AI ට)</h2>
+    <p class="card-desc">AI එකට reply දෙන්න මේ විස්තර use කරනවා. ඔයාගේ business එක ගැන, සේවා ගැන, හෝ ඕනම දෙයක් විස්තර කරන්න.</p>
+    <textarea id="businessInfo" rows="6" placeholder="උදා: මම ABC Fashion කියන ලෙඩීස් ඇඳුම් shop එකක් කරගෙන යනවා. අපි whatsapp හරහා order ගන්නවා. Delivery දවස් 3ක් යනවා. Cash on delivery විතරයි තියෙන්නෙ..."></textarea>
+    <button class="btn-primary" onclick="saveBusinessInfo()">Save කරන්න</button>
+    <p class="success-msg" id="businessSaveMsg"></p>
+  </div>
+
+  <!-- Welcome Message Card -->
+  <div class="card">
+    <h2>Welcome Message</h2>
+    <p class="card-desc">අලුතින් message එවන කෙනාට මුලින්ම යවන message එක</p>
+    <textarea id="welcomeMsg" rows="3" placeholder="ආයුබෝවන්! අපිට ලියන්න ස්තූතියි 😊"></textarea>
+    <button class="btn-primary" onclick="saveWelcomeMsg()">Save කරන්න</button>
+    <p class="success-msg" id="welcomeSaveMsg"></p>
+  </div>
+
+  <!-- Platform Connections -->
+  <div class="card">
+    <h2>Platform Connect කරන්න</h2>
+
+    <div class="platform-section">
+      <h3>📱 WhatsApp Business API</h3>
+      <input type="text" id="waPhoneId" placeholder="Phone Number ID">
+      <input type="text" id="waToken" placeholder="Access Token">
+      <input type="text" id="waBusinessId" placeholder="Business Account ID">
+      <button class="btn-secondary" onclick="connectPlatform('whatsapp')">Connect WhatsApp</button>
+      <span id="waStatus" class="conn-status">Not Connected</span>
+    </div>
+
+    <div class="platform-section">
+      <h3>📘 Facebook Messenger</h3>
+      <input type="text" id="fbPageId" placeholder="Page ID">
+      <input type="text" id="fbToken" placeholder="Page Access Token">
+      <button class="btn-secondary" onclick="connectPlatform('facebook')">Connect Facebook</button>
+      <span id="fbStatus" class="conn-status">Not Connected</span>
+    </div>
+
+    <div class="platform-section">
+      <h3>📷 Instagram</h3>
+      <input type="text" id="igAccountId" placeholder="Instagram Business Account ID">
+      <input type="text" id="igToken" placeholder="Access Token">
+      <button class="btn-secondary" onclick="connectPlatform('instagram')">Connect Instagram</button>
+      <span id="igStatus" class="conn-status">Not Connected</span>
+    </div>
+  </div>
+
+  <!-- Payment Upload -->
+  <div class="card">
+    <h2>Payment Slip Upload</h2>
+    <p class="card-desc">ගෙවීම් කරපු Bank Slip/Screenshot upload කරන්න (PDF හෝ Photo)</p>
+    <div id="amountDueDisplay" class="amount-due"></div>
+    <input type="file" id="paymentSlip" accept=".pdf,.png,.jpg,.jpeg">
+    <input type="number" id="paidAmount" placeholder="ගෙවපු මුදල (රු.)">
+    <button class="btn-primary" onclick="uploadPaymentSlip()">Upload කරන්න</button>
+    <p class="success-msg" id="paymentUploadMsg"></p>
+
+    <h3 style="margin-top:20px;">ගෙවීම් ඉතිහාසය</h3>
+    <div id="paymentHistory"></div>
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/user-dashboard.js"></script>
+
+</body>
+</html>
