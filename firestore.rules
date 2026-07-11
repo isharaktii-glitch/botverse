@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // USERS COLLECTION
+    match /users/{userId} {
+      // User කෙනාට තමන්ගේම data එක කියවන්න/edit කරන්න පුළුවන්
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      // Register වෙනකොට create කරන්න පුළුවන්
+      allow create: if request.auth != null && request.auth.uid == userId;
+      // Admin ට හැම user ගේම data කියවන්න/edit/delete කරන්න පුළුවන්
+      allow read, write, delete: if request.auth != null && request.auth.token.email == "isharaktii@gmail.com";
+    }
+
+    // PAYMENTS COLLECTION
+    match /payments/{paymentId} {
+      // User කෙනාට තමන්ගේ payment එකක් හදන්න/බලන්න පුළුවන්
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      allow read: if request.auth != null && (
+        request.auth.uid == resource.data.userId ||
+        request.auth.token.email == "isharaktii@gmail.com"
+      );
+      // Payment status update කරන්න පුළුවන් admin ට විතරයි
+      allow update, delete: if request.auth != null && request.auth.token.email == "isharaktii@gmail.com";
+    }
+
+    // MESSAGE LOGS (AI reply history)
+    match /messageLogs/{logId} {
+      allow read: if request.auth != null && (
+        request.auth.uid == resource.data.userId ||
+        request.auth.token.email == "isharaktii@gmail.com"
+      );
+      allow write: if false; // Cloud Functions (admin SDK) විතරයි write කරන්නෙ
+    }
+  }
+}
