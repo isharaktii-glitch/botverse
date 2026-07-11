@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BotVerse - Admin Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body">
+
+<nav class="navbar">
+  <span class="nav-brand">BotVerse Admin</span>
+  <div class="nav-right">
+    <span class="status-badge">Admin</span>
+    <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<div class="dashboard-container">
+
+  <!-- Summary -->
+  <div class="card">
+    <h2>සාරාංශය</h2>
+    <div class="status-row"><span>මුළු Users ගණන:</span><span id="totalUsers">-</span></div>
+    <div class="status-row"><span>Approval බලාපොරොත්තු වන:</span><span id="pendingUsers">-</span></div>
+    <div class="status-row"><span>Bot ON කරලා ඉන්නා:</span><span id="activeBots">-</span></div>
+  </div>
+
+  <!-- Pending Payments -->
+  <div class="card">
+    <h2>Payment සමීක්ෂණය (Pending)</h2>
+    <div id="pendingPayments"></div>
+  </div>
+
+  <!-- User List -->
+  <div class="card">
+    <h2>User ලායිස්තුව</h2>
+    <input type="text" id="searchUser" placeholder="Email/Username වලින් සොයන්න..." onkeyup="filterUsers()">
+    <div style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Bot</th>
+            <th>Approved</th>
+            <th>Payment</th>
+            <th>Amount Due</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- User Detail / Edit Modal -->
+<div id="userModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <h2 id="modalUsername"></h2>
+    <p id="modalEmail" style="color:#9ec9a8;margin-bottom:15px;"></p>
+
+    <label>Amount Due (රු.)</label>
+    <input type="number" id="modalAmountDue">
+    <button class="btn-secondary" onclick="updateAmountDue()">Amount Due Update කරන්න</button>
+
+    <hr style="margin:20px 0;border-color:rgba(74,222,128,0.2);">
+
+    <h3>AI Response Preview (Test)</h3>
+    <p class="card-desc">User ගේ business info එක අනුව AI කෙනා reply කරන්නෙ මොනවද කියලා බලන්න</p>
+    <textarea id="testMessage" rows="2" placeholder="Test message එකක් ටයිප් කරන්න..."></textarea>
+    <button class="btn-secondary" onclick="testAIReply()">AI Reply Test කරන්න</button>
+    <div id="aiTestResult" class="payment-item" style="display:none;margin-top:10px;"></div>
+
+    <hr style="margin:20px 0;border-color:rgba(74,222,128,0.2);">
+
+    <h3>Business Info (User දාපු)</h3>
+    <p id="modalBusinessInfo" class="payment-item"></p>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/admin-dashboard.js"></script>
+
+</body>
+</html>
