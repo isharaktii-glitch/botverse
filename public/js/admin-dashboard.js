@@ -1,6 +1,6 @@
 // ==========================================================
 // admin-dashboard.js
-// Admin Dashboard Logic
+// Admin Dashboard Logic (DEBUG VERSION)
 // ==========================================================
 
 let allUsers = [];
@@ -15,7 +15,6 @@ auth.onAuthStateChanged(async function(user) {
   }
 
   if (user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-    // Admin නොවේ නම් user dashboard එකට redirect කරනවා
     window.location.href = 'user-dashboard.html';
     return;
   }
@@ -25,23 +24,38 @@ auth.onAuthStateChanged(async function(user) {
 });
 
 // ==========================================================
-// සියලුම Users Load කිරීම
+// සියලුම Users Load කිරීම (DEBUG MODE)
 // ==========================================================
 async function loadAllUsers() {
-  try {
-    const snapshot = await db.collection('users').get();
-    allUsers = [];
+  const debugBox = document.createElement('div');
+  debugBox.style.cssText = 'background:#fff;color:#000;padding:15px;margin:10px 0;border-radius:8px;font-size:12px;word-break:break-all;';
+  debugBox.id = 'debugBox';
+  document.querySelector('.dashboard-container').prepend(debugBox);
 
+  try {
+    debugBox.innerHTML = 'STEP 1: Checking auth... UID=' + (auth.currentUser ? auth.currentUser.uid : 'NULL') + ' Email=' + (auth.currentUser ? auth.currentUser.email : 'NULL');
+
+    const snapshot = await db.collection('users').get();
+
+    debugBox.innerHTML += '<br>STEP 2: Query success. Docs found=' + snapshot.size;
+
+    allUsers = [];
     snapshot.forEach(doc => {
       allUsers.push({ id: doc.id, ...doc.data() });
     });
 
+    debugBox.innerHTML += '<br>STEP 3: allUsers array length=' + allUsers.length;
+    if (allUsers.length > 0) {
+      debugBox.innerHTML += '<br>First user data: ' + JSON.stringify(allUsers[0]);
+    }
+
     renderUsersTable(allUsers);
     renderSummary();
 
+    debugBox.innerHTML += '<br>STEP 4: Render complete.';
+
   } catch (error) {
-    console.error('Error loading users:', error);
-    alert('Users load කරද්දී error එකක්: ' + error.message);
+    debugBox.innerHTML += '<br><strong style="color:red;">ERROR: ' + error.code + ' - ' + error.message + '</strong>';
   }
 }
 
@@ -101,7 +115,7 @@ function filterUsers() {
 }
 
 // ==========================================================
-// Approve / Reject User (Bot Full On/Off සම්බන්ධයි)
+// Approve / Reject User
 // ==========================================================
 async function approveUser(userId) {
   try {
@@ -132,7 +146,7 @@ async function rejectUser(userId) {
 }
 
 // ==========================================================
-// Bot ON/OFF Toggle (Manual override - admin ට කැමති වෙලාවක)
+// Bot ON/OFF Toggle
 // ==========================================================
 async function toggleBot(userId, newStatus) {
   try {
@@ -159,9 +173,6 @@ async function deleteUser(userId) {
     alert('Error: ' + error.message);
   }
 }
-// සටහන: මේකෙන් Firestore document එක විතරයි delete වෙන්නෙ.
-// Firebase Authentication එකෙන්ම account එක සම්පූර්ණයෙන් ඉවත් කරන්න Cloud Function
-// එකක් අවශ්‍යයි (admin SDK පාවිච්චි කරන්න ඕන නිසා frontend එකෙන් කරන්න බැහැ).
 
 // ==========================================================
 // User Modal (Details + Amount Due + AI Test)
@@ -220,8 +231,7 @@ async function updateAmountDue() {
 }
 
 // ==========================================================
-// AI Reply Test කිරීම (Admin ට user ගේ business info එක අනුව
-// AI කොහොමද reply කරන්නෙ කියලා preview කරන්න)
+// AI Reply Test කිරීම
 // ==========================================================
 async function testAIReply() {
   const testMsg = document.getElementById('testMessage').value.trim();
