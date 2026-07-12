@@ -29,7 +29,7 @@ auth.onAuthStateChanged(async function(user) {
 // ==========================================================
 async function loadAllUsers() {
   try {
-    const snapshot = await db.collection('users').orderBy('createdAt', 'desc').get();
+    const snapshot = await db.collection('users').get();
     allUsers = [];
 
     snapshot.forEach(doc => {
@@ -41,6 +41,7 @@ async function loadAllUsers() {
 
   } catch (error) {
     console.error('Error loading users:', error);
+    alert('Users load කරද්දී error එකක්: ' + error.message);
   }
 }
 
@@ -161,7 +162,6 @@ async function deleteUser(userId) {
 // සටහන: මේකෙන් Firestore document එක විතරයි delete වෙන්නෙ.
 // Firebase Authentication එකෙන්ම account එක සම්පූර්ණයෙන් ඉවත් කරන්න Cloud Function
 // එකක් අවශ්‍යයි (admin SDK පාවිච්චි කරන්න ඕන නිසා frontend එකෙන් කරන්න බැහැ).
-// ඒක Cloud Functions කොටසේදී පෙන්නන්නම්.
 
 // ==========================================================
 // User Modal (Details + Amount Due + AI Test)
@@ -237,7 +237,6 @@ async function testAIReply() {
   resultEl.textContent = 'AI Response එක ලබාගනිමින්...';
 
   try {
-    // Cloud Function එකට call කරනවා (Gemini AI test reply)
     const response = await fetch('https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/testAIReply', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -265,7 +264,6 @@ async function loadPendingPayments() {
   try {
     const snapshot = await db.collection('payments')
       .where('status', '==', 'pending_review')
-      .orderBy('submittedAt', 'desc')
       .get();
 
     if (snapshot.empty) {
