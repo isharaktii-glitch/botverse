@@ -27,8 +27,8 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Deploy Firestore Rules and Storage Rules
+      - name: Deploy Firestore Rules
         run: |
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > /tmp/service-account.json
           export GOOGLE_APPLICATION_CREDENTIALS=/tmp/service-account.json
-          firebase deploy --only firestore:rules,storage --project botverse-3343b
+          firebase deploy --only firestore:rules --project botverse-3343b
